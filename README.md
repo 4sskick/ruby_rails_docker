@@ -1,4 +1,3 @@
-
 # Rails App
 
 Welcome to your [Ruby On Rails](https://rubyonrails.org/) app.
@@ -9,10 +8,42 @@ Clone down the repo, install [Docker](https://hub.docker.com/editions/community/
 
 ```bash
 $ docker-compose build
-$ docker-compose run --rm web rails new <project_name> --database=<postgresql_or_else> --api
+# $ docker-compose run --rm web rails new <project_name> --database=<postgresql_or_else> --api
 ```
 
-Execute one by one, the command gonna generate the Ruby on Rails project setup API.
+run project after project generated
+
+### Generate Project
+
+going inside the container using `--service-ports`. That flag will automatically expose ports specified in the service's `ports` section to the host machine when using `rails s -p 3000 -b 0.0.0.0`
+
+```bash
+$ docker-compose run --service-ports web bash
+$ rails new <project_name> --api
+```
+
+generated project file will available directly on local machine also, project ready to run
+
+```bash
+$ rails server -p 3000 -b 0.0.0.0
+```
+
+# open web browser and type `localhost:3000`
+
+=============================================
+
+### Database Initialize
+
+```bash
+$ docker-compose run --rm web sh -c "cd <project_path_folder> && rake db:create"
+```
+
+or simply direct to <project_path_folder> then \*but seem like not working
+
+```bash
+$ cd <project_path_folder>
+$ docker-compose run --rm web rake db:create
+```
 
 ## Next(?)
 
@@ -30,8 +61,8 @@ Feel free to use these as a starting point for your own Ruby on Rails project!
 
 ## Resources
 
-* [Ruby on Rails Guides](https://guides.rubyonrails.org/)
-* [Ruby on Rails API Documentation](https://api.rubyonrails.org/)
+- [Ruby on Rails Guides](https://guides.rubyonrails.org/)
+- [Ruby on Rails API Documentation](https://api.rubyonrails.org/)
 
 ## License
 
